@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  background-color: #09090b;
+  color: #fafafa;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111113;
+}
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(45,212,191,0.4);
+}
+
+.glow-text {
+  color: #2dd4bf;
+  text-shadow: 0 0 20px rgba(45, 212, 191, 0.5);
+}
+
+.card-glass {
+  background: rgba(24, 24, 27, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(63, 63, 70, 0.8);
+}
+
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(45,212,191,0.4), rgba(167,139,250,0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.typing-cursor::after {
+  content: '▋';
+  animation: blink 1s step-end infinite;
+  color: #2dd4bf;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+textarea, input, select {
+  outline: none;
+}
+
+.markdown-output h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fafafa;
+  margin: 0.5rem 0 0.75rem;
+}
+.markdown-output h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #a78bfa;
+  margin: 0.75rem 0 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.markdown-output hr {
+  border: none;
+  border-top: 1px solid #3f3f46;
+  margin: 1rem 0;
+}
+.markdown-output blockquote {
+  border-left: 3px solid #2dd4bf;
+  padding-left: 0.75rem;
+  margin: 0.5rem 0;
+  color: #71717a;
+}
+.markdown-output h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2dd4bf;
+  margin: 1.2rem 0 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(45,212,191,0.15);
+}
+.markdown-output h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fafafa;
+  margin: 1rem 0 0.4rem;
+}
+.markdown-output p {
+  color: #a1a1aa;
+  line-height: 1.7;
+  margin-bottom: 0.6rem;
+}
+.markdown-output ul, .markdown-output ol {
+  padding-left: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+.markdown-output li {
+  color: #a1a1aa;
+  margin-bottom: 0.3rem;
+  line-height: 1.6;
+}
+.markdown-output strong {
+  color: #fafafa;
+  font-weight: 600;
+}
+.markdown-output code {
+  background: rgba(45,212,191,0.08);
+  border: 1px solid rgba(45,212,191,0.18);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  color: #5eead4;
+}
+.markdown-output pre {
+  background: #09090b;
+  border: 1px solid #3f3f46;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 0.8rem 0;
+}
+.markdown-output pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #fafafa;
+}
+.markdown-output table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8rem 0;
+  font-size: 0.9rem;
+}
+.markdown-output th {
+  background: rgba(45,212,191,0.08);
+  color: #2dd4bf;
+  padding: 0.5rem 0.8rem;
+  text-align: left;
+  border: 1px solid #3f3f46;
+  font-weight: 600;
+}
+.markdown-output td {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #3f3f46;
+  color: #a1a1aa;
+}
+.markdown-output tr:hover td {
+  background: rgba(45,212,191,0.04);
+}
