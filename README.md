@@ -403,7 +403,3 @@ The **Oracle AI Finder** tool specifically supports Denovo's Oracle AI Cloud pra
 - Generating prioritized opportunity assessments with implementation effort and revenue estimates
 - Identifying quick wins (demonstrable in 30 days)
 - Producing demo scenario recommendations tailored to the client's industry and ERP setup
-
----
-
-*Built for Denovo · Part of Argano · Oracle Partner*
