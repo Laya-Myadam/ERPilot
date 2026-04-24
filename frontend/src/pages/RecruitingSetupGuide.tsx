@@ -13,6 +13,16 @@ export default function RecruitingSetupGuide() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => {
+    setClientName("Acme Manufacturing Inc.");
+    setJobFamilies("Manufacturing & Operations, Finance & Accounting, Human Resources, Information Technology, Engineering, Sales & Marketing, Supply Chain & Logistics, Executive");
+    setHiringStages("New → Application Review → Phone Screen → Hiring Manager Interview → Panel Interview → Reference Check → Offer Extended → Background Check → Offer Accepted → Hired");
+    setOfferApprovalLevels("Hiring Manager proposes offer → HR Compensation reviews → HR Business Partner approves → Director approval for offers >$120K → CHRO for VP+ offers");
+    setBackgroundCheckVendor("HireRight (criminal, employment verification, education)");
+    setIntegrations("Oracle Cloud HCM Core (new hire conversion), LinkedIn Recruiter (job posting), Indeed (job board sync), HireRight (background check), DocuSign (offer letters)");
+    setAnnualHireVolume("~280 external hires/year: 180 production/operations, 60 professional/exempt, 40 management");
+  };
+
   const generate = async () => {
     if (!jobFamilies.trim()) return;
     setLoading(true); setResult("");
@@ -79,10 +89,13 @@ export default function RecruitingSetupGuide() {
           </div>
         </div>
 
-        <button onClick={generate} disabled={loading || !jobFamilies.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Generating Recruiting Setup Guide..." : "Generate Oracle Recruiting Setup Guide"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !jobFamilies.trim()}
+            className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating Recruiting Setup Guide..." : "Generate Oracle Recruiting Setup Guide"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your Oracle Recruiting setup guide will appear here — requisition config, candidate workflow, offer management, career site setup, integrations, and go-live checklist." />

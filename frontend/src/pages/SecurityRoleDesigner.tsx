@@ -22,6 +22,13 @@ export default function SecurityRoleDesigner() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => {
+    setRoleName("Payroll Specialist"); setModule("Payroll"); setErpSystem("Oracle Cloud HCM"); setLegislation("US");
+    setCanDo("View and edit element entries for employees in their assigned business unit\nRun payroll calculations (Quick Pay and Payroll Run)\nView payroll run results and statements of earnings\nResubmit failed payroll processes\nView and print payment documents\nAccess payroll costing results\nRun standard payroll reports (Payroll Register, Element Summary)");
+    setCannotDo("Cannot approve payrolls — approval is done by Payroll Manager only\nCannot create or modify payroll elements or element definitions\nCannot view employees in other business units\nCannot access salary or compensation data\nCannot modify tax withholding setup\nCannot access HR personal data beyond what is needed for payroll");
+    setDataRestrictions("Can only see employees assigned to the US Ohio business unit. Cannot see employees in Texas or California business units. Cannot see salary grade or compensation history.");
+  };
+
   const generate = async () => {
     if (!roleName.trim() || !canDo.trim()) return;
     setLoading(true); setResult("");
@@ -93,10 +100,13 @@ export default function SecurityRoleDesigner() {
             value={dataRestrictions} onChange={e => setDataRestrictions(e.target.value)} />
         </div>
 
-        <button onClick={generate} disabled={loading || !roleName.trim() || !canDo.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Designing Security Role..." : "Generate Oracle Security Role Design"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !roleName.trim() || !canDo.trim()}
+            className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Designing Security Role..." : "Generate Oracle Security Role Design"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your Oracle Cloud security role design will appear here — job roles, duty roles, data security profiles, SOD conflicts, and implementation steps." />

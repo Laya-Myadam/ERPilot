@@ -43,12 +43,17 @@ export default function GoLiveChecklist() {
   const run = async () => {
     if (!projectName.trim() || !clientName.trim() || !goLiveDate.trim()) return
     setLoading(true); setOutput('')
-    const res = await generateGoLiveChecklist(
-      projectName, clientName, goLiveDate, selectedModules,
-      erpSystem, teamSize, cutoverWindow, specialConsiderations
-    )
-    setOutput(res.checklist)
-    setLoading(false)
+    try {
+      const res = await generateGoLiveChecklist(
+        projectName, clientName, goLiveDate, selectedModules,
+        erpSystem, teamSize, cutoverWindow, specialConsiderations
+      )
+      setOutput(res.checklist)
+    } catch (err: any) {
+      setOutput(`Error generating checklist. ${err?.response?.data?.detail || err?.message || 'Check backend connection.'}`)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const canRun = projectName.trim() && clientName.trim() && goLiveDate.trim() && !loading

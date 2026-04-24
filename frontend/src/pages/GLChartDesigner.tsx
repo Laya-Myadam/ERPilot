@@ -13,6 +13,13 @@ export default function GLChartDesigner() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => {
+    setCompanyName("Acme Manufacturing Inc."); setIndustry("Manufacturing — industrial equipment and components");
+    setLegalEntities("3 US legal entities: Acme Manufacturing Ohio LLC, Acme Texas Operations Inc., Acme California Logistics Inc. + 1 Canadian entity: Acme Canada Ltd.");
+    setNumSegments("6"); setReportingRequirements("US GAAP consolidated financials, entity-level P&L, department-level cost center reporting, product line profitability, intercompany elimination, management reporting by division");
+    setIntercompanyNeeded(true); setHasProjects(false);
+  };
+
   const generate = async () => {
     if (!companyName.trim()) return;
     setLoading(true); setResult("");
@@ -80,10 +87,13 @@ export default function GLChartDesigner() {
           </div>
         </div>
 
-        <button onClick={generate} disabled={loading || !companyName.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Designing Chart of Accounts..." : "Generate GL Chart of Accounts Design"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !companyName.trim()}
+            className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Designing Chart of Accounts..." : "Generate GL Chart of Accounts Design"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your COA design will appear here — segment structure, natural account ranges, value sets, cross-validation rules, and account hierarchy rollups." />

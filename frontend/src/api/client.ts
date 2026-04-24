@@ -168,3 +168,30 @@ export const generateJDEDistribution = (data: object) =>
 
 export const generateJDEManufacturing = (data: object) =>
   api.post('/jde-manufacturing/generate', data).then(r => r.data)
+
+export const uploadDocument = async (file: File): Promise<{ session_id: string; filename: string; char_count: number; preview: string }> => {
+  const form = new FormData()
+  form.append('file', file)
+  const res = await api.post('/doc-chat/upload', form, { headers: { 'Content-Type': 'multipart/form-data' } })
+  return res.data
+}
+
+export const chatWithDocument = async (
+  session_id: string,
+  message: string,
+  history: { role: string; content: string }[],
+  onChunk: (c: string) => void
+) => {
+  const response = await fetch('/api/doc-chat/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ session_id, message, history }),
+  })
+  const reader = response.body!.getReader()
+  const decoder = new TextDecoder()
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    onChunk(decoder.decode(value))
+  }
+}

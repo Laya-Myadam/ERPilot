@@ -14,6 +14,8 @@ export default function ChangeRequestGenerator() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => { setProjectName("Oracle Fusion Cloud HCM Implementation"); setClientName("Acme Manufacturing Inc."); setCrTitle("Add Canada HCM Configuration for 120 Ontario Employees — Phase 1 Expansion"); setRequestedBy("Jennifer Walsh, CHRO — Acme Manufacturing"); setChangeDescription("Client has decided to accelerate the Phase 2 Canada expansion into the current Phase 1 project scope. This requires adding Canadian legislation configuration for Ontario, configuring a separate Canadian payroll definition (semi-monthly), migrating 120 Canadian employees from ADP Canada, and configuring province-specific absence plans (Ontario ESA compliance). This was explicitly listed as out-of-scope in the original SOW."); setReasonForChange("Acme is acquiring a Canadian company (closing June 30) and needs all employees on a single Oracle Cloud HCM system by August 1 to consolidate HR operations before the acquisition integration period."); setModulesAffected("Core HCM, Payroll, Absence Management, OTL, HDL Data Migration"); setOriginalScope("Original SOW Section 2.3 explicitly excludes Canada operations. Scope limited to 3 US legal entities (Ohio, Texas, California)."); };
+
   const generate = async () => {
     if (!crTitle.trim() || !changeDescription.trim()) return;
     setLoading(true); setResult("");
@@ -88,10 +90,12 @@ export default function ChangeRequestGenerator() {
           </div>
         </div>
 
-        <button onClick={generate} disabled={loading || !crTitle.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Generating Change Request..." : "Generate Change Request Document"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !crTitle.trim()} className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating Change Request..." : "Generate Change Request Document"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your formal Change Request document will appear here — with schedule impact, effort estimate, cost breakdown, and approval signature table." />

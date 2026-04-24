@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import chatbot, summarizer, release_notes, sow, meeting_notes, migration, incident, sql_gen, proposal, roi, test_scripts, training, ai_opportunity, golive, fast_formula, hdl_template, kb_article, battle_card, payroll_recon, absence_plan, payroll_element, otl_schedule, hcm_workbook, parallel_run, status_report, sr_ticket, change_request, security_role, integration_spec, kickoff_pack, benefits_config, compensation_plan, recruiting_setup, gl_designer, ap_setup, jde_migration_map, hcm_learning, hcm_talent, hcm_workforce, erp_ar, erp_fixed_assets, erp_procurement, erp_projects, erp_cash, jde_finance, jde_distribution, jde_manufacturing
+from routers import chatbot, summarizer, release_notes, sow, meeting_notes, migration, incident, sql_gen, proposal, roi, test_scripts, training, ai_opportunity, golive, fast_formula, hdl_template, kb_article, battle_card, payroll_recon, absence_plan, payroll_element, otl_schedule, hcm_workbook, parallel_run, status_report, sr_ticket, change_request, security_role, integration_spec, kickoff_pack, benefits_config, compensation_plan, recruiting_setup, gl_designer, ap_setup, jde_migration_map, hcm_learning, hcm_talent, hcm_workforce, erp_ar, erp_fixed_assets, erp_procurement, erp_projects, erp_cash, jde_finance, jde_distribution, jde_manufacturing, doc_chat
 from database import init_db, SessionLocal, GenerationHistory
 from sqlalchemy import desc
 
@@ -19,6 +19,7 @@ def startup():
     init_db()
 
 app.include_router(chatbot.router, prefix="/api/chatbot", tags=["ERP Chatbot"])
+app.include_router(doc_chat.router, prefix="/api/doc-chat", tags=["Document Chatbot"])
 app.include_router(summarizer.router, prefix="/api/summarizer", tags=["Doc Summarizer"])
 app.include_router(release_notes.router, prefix="/api/release-notes", tags=["Release Notes"])
 app.include_router(sow.router, prefix="/api/sow", tags=["SOW Generator"])

@@ -1,22 +1,39 @@
 import os
+import random
 from groq import Groq
 from dotenv import load_dotenv
 
 load_dotenv()
 
-_client = None
+_clients = None
+
+
+def _get_clients() -> list[Groq]:
+    global _clients
+    if _clients is None:
+        keys = []
+        primary = os.getenv("GROQ_API_KEY")
+        if primary:
+            keys.append(primary)
+        for i in range(2, 10):
+            k = os.getenv(f"GROQ_API_KEY_{i}")
+            if k:
+                keys.append(k)
+            else:
+                break
+        if not keys:
+            raise ValueError("No GROQ_API_KEY set in environment")
+        _clients = [Groq(api_key=k) for k in keys]
+    return _clients
+
 
 def get_groq_client() -> Groq:
-    global _client
-    if _client is None:
-        api_key = os.getenv("GROQ_API_KEY")
-        if not api_key:
-            raise ValueError("GROQ_API_KEY not set in environment")
-        _client = Groq(api_key=api_key)
-    return _client
+    return random.choice(_get_clients())
+
 
 PRIMARY_MODEL = "llama-3.3-70b-versatile"
 FAST_MODEL = "llama-3.1-8b-instant"
+
 
 def chat_completion(messages: list, temperature: float = 0.3, max_tokens: int = 2048, fast: bool = False) -> str:
     client = get_groq_client()
@@ -28,6 +45,7 @@ def chat_completion(messages: list, temperature: float = 0.3, max_tokens: int = 
         max_tokens=max_tokens,
     )
     return response.choices[0].message.content
+
 
 def stream_completion(messages: list, temperature: float = 0.3, max_tokens: int = 2048):
     client = get_groq_client()

@@ -40,6 +40,7 @@ import RecruitingSetupGuide from './pages/RecruitingSetupGuide'
 import GLChartDesigner from './pages/GLChartDesigner'
 import APSetupGenerator from './pages/APSetupGenerator'
 import JDEMigrationMapper from './pages/JDEMigrationMapper'
+import DocumentChatbot from './pages/DocumentChatbot'
 
 export default function App() {
   return (
@@ -49,8 +50,8 @@ export default function App() {
         <div className="flex-1 flex flex-col overflow-hidden">
           <main className="flex-1 overflow-y-auto">
             <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/chatbot" element={<ERPChatbot />} />
+              <Route path="/" element={<ERPChatbot />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/summarizer" element={<DocSummarizer />} />
               <Route path="/release-notes" element={<ReleaseNotes />} />
               <Route path="/sow" element={<SOWGenerator />} />
@@ -89,6 +90,7 @@ export default function App() {
               <Route path="/gl-designer" element={<GLChartDesigner />} />
               <Route path="/ap-setup" element={<APSetupGenerator />} />
               <Route path="/jde-migration" element={<JDEMigrationMapper />} />
+              <Route path="/doc-chat" element={<DocumentChatbot />} />
             </Routes>
           </main>
         </div>

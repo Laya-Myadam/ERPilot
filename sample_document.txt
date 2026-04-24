@@ -1,0 +1,272 @@
+STATEMENT OF WORK
+Oracle Fusion Cloud HCM Implementation
+Acme Manufacturing Inc.
+
+Prepared by: Denovo Consulting
+Date: April 1, 2025
+Version: 1.2 (Final)
+
+================================================================
+1. PROJECT OVERVIEW
+================================================================
+
+Denovo Consulting ("Denovo") will implement Oracle Fusion Cloud HCM for Acme
+Manufacturing Inc. ("Client") across its three US legal entities located in
+Ohio, Texas, and California. The project will replace the Client's current
+HR and payroll platform, ADP Workforce Now.
+
+Project Start Date:   April 21, 2025
+Target Go-Live Date:  October 1, 2025
+Total Project Budget: $2,100,000 (fixed fee)
+Contract Type:        Fixed Price
+
+================================================================
+2. SCOPE OF SERVICES
+================================================================
+
+2.1 MODULES IN SCOPE
+- Core HCM (Worker, Employment, Organization Management)
+- Oracle Payroll (US)
+- Absence Management
+- Time and Labor (OTL)
+
+2.2 OUT OF SCOPE
+The following are explicitly excluded from this engagement:
+- Canada operations (to be addressed in Phase 2)
+- Oracle Recruiting Cloud (IRC)
+- Oracle Learning Management
+- Performance Management
+- Compensation Workbench
+- Integration with any third-party benefits carrier (benefits carrier
+  EDI files are a separate engagement)
+
+2.3 LEGAL ENTITIES IN SCOPE
+1. Acme Manufacturing Ohio LLC (Primary entity, 1,400 employees)
+2. Acme Texas Operations Inc. (600 employees)
+3. Acme California Logistics Inc. (400 employees)
+Total in-scope employee count: 2,400 employees
+
+================================================================
+3. PROJECT TEAM
+================================================================
+
+3.1 DENOVO TEAM
+- Sarah Chen         | Lead HCM Consultant (Core HCM + Absence)
+- Raj Patel          | Payroll Consultant (Payroll + OTL)
+- Michael Torres     | Project Manager
+- Priya Sharma       | Engagement Director
+- James Liu          | Integration Architect (part-time, integrations only)
+
+3.2 CLIENT TEAM (REQUIRED)
+- Jennifer Walsh     | CHRO — Executive Sponsor
+- Mark Davis         | IT Director — Technical Lead
+- Lisa Chen          | Payroll Manager — Payroll SME
+- Tom Rivera         | HR Manager — HCM SME
+- 2 UAT Testers      | To be named by Client by May 1, 2025
+
+================================================================
+4. PROJECT PHASES AND MILESTONES
+================================================================
+
+Phase 1 — Initiation & Discovery (Apr 21 – May 9, 2025)
+  - Project kickoff and governance setup
+  - Current-state discovery workshops (5 days on-site)
+  - Configuration workbook distribution
+  Milestone: Discovery complete and workbooks returned — May 9
+
+Phase 2 — Design & Configuration (May 12 – Jul 11, 2025)
+  - Core HCM configuration (org structure, jobs, positions)
+  - Payroll element setup (earnings, deductions, taxes)
+  - Absence plan configuration (6 leave types)
+  - OTL work schedules (3-shift manufacturing pattern)
+  - Fast Formula development (OT, shift differential)
+  Milestone: Configuration complete and workbook signed off — Jul 11
+
+Phase 3 — Data Migration (Jun 2 – Aug 1, 2025)
+  - HDL template preparation
+  - Data extract from ADP Workforce Now
+  - Data cleansing and transformation
+  - Mock migration #1 — Jun 30
+  - Mock migration #2 — Jul 21
+  - Final migration — Aug 1
+  Milestone: Data migration sign-off — Aug 1
+
+Phase 4 — Testing (Jul 14 – Aug 29, 2025)
+  - System Integration Testing (SIT) — Jul 14–25
+  - Parallel Run #1 — Jul 28–Aug 8
+  - Parallel Run #2 — Aug 11–22
+  - UAT — Aug 25–29
+  Milestone: UAT sign-off — Aug 29
+
+Phase 5 — Cutover & Go-Live (Sep 1 – Oct 1, 2025)
+  - Cutover planning finalization
+  - Final data load — Sep 26–28
+  - Go/No-Go review — Sep 29
+  - Production go-live — Oct 1
+  Milestone: Go-live confirmed — Oct 1
+
+Phase 6 — Hypercare (Oct 1 – Oct 31, 2025)
+  - 30 days post-go-live support
+  - Daily check-ins for first 2 weeks
+  - Issue triage and resolution
+
+================================================================
+5. DELIVERABLES
+================================================================
+
+Denovo will provide the following deliverables:
+
+5.1 Documentation
+  - Project Charter
+  - Configuration Workbooks (one per module)
+  - Data Migration Templates and Mapping Specification
+  - Integration Specification Documents
+  - Test Scripts (SIT and UAT)
+  - End-User Training Materials
+  - Go-Live Cutover Plan
+  - Hypercare Support Log
+
+5.2 Configured System
+  - Fully configured Oracle Cloud HCM environment
+  - Payroll elements, fast formulas, and balance feeds
+  - Absence plans with accrual rules
+  - OTL work schedules
+
+5.3 Data Migration
+  - Migrated employee records (active and terminated within 3 years)
+  - 3 years of payroll history
+  - Dependent and beneficiary data
+
+================================================================
+6. ASSUMPTIONS
+================================================================
+
+This SOW is based on the following assumptions. If these prove incorrect,
+Denovo reserves the right to issue a Change Request:
+
+1. Client will assign named SMEs who are available a minimum of 50% of
+   their time during configuration phases.
+2. ADP data extracts will be provided to Denovo in Excel or CSV format
+   by May 15, 2025.
+3. Client's IT team will provision Oracle Cloud tenant environments
+   (Production, Test, Development) by April 28, 2025.
+4. The go-live date of October 1, 2025 is fixed and cannot move.
+5. Union employees in Ohio (approximately 340 Teamsters Local 436 members)
+   will follow standard Oracle payroll configuration. CBA-specific rules
+   will be handled via fast formulas, which are in scope.
+6. California double-time rules will require legal sign-off from Client's
+   HR Legal team. Denovo will build the fast formula; legal approval is
+   Client's responsibility.
+7. No more than 3 custom integrations are required (401k, benefits carrier
+   file, and GL journal entry). Each additional integration is out of scope.
+
+================================================================
+7. CLIENT RESPONSIBILITIES
+================================================================
+
+The Client is responsible for:
+- Providing SME time as specified in Section 3.2
+- All hardware, infrastructure, and Oracle license costs
+- Obtaining Oracle Cloud tenant provisioning
+- Business decisions on configuration options within 5 business days of
+  being asked
+- UAT execution and sign-off
+- End-user training delivery (Denovo provides materials; Client delivers)
+- Change management and communication to employees
+- Legal and compliance review of payroll rules
+
+================================================================
+8. CHANGE REQUEST PROCESS
+================================================================
+
+Any work outside the scope defined in Section 2 will require a written
+Change Request (CR). CRs must be approved by both parties before work
+begins. Denovo will not perform out-of-scope work without a signed CR.
+
+The following are examples of items that would trigger a CR:
+- Adding Canada or any additional legal entity
+- Adding Oracle modules not listed in Section 2.1
+- Increasing the number of integrations beyond 3
+- Extending the timeline due to Client-caused delays
+
+================================================================
+9. FEES AND PAYMENT SCHEDULE
+================================================================
+
+Total Fixed Fee: $2,100,000
+
+Payment Milestone Schedule:
+  - Project kickoff (Apr 21):           $315,000  (15%)
+  - Discovery complete (May 9):         $210,000  (10%)
+  - Configuration sign-off (Jul 11):    $420,000  (20%)
+  - Data migration sign-off (Aug 1):    $315,000  (15%)
+  - UAT sign-off (Aug 29):             $420,000  (20%)
+  - Go-live (Oct 1):                   $315,000  (15%)
+  - Hypercare complete (Oct 31):        $105,000  (5%)
+
+Payment terms: Net 30 from invoice date.
+Late payments accrue interest at 1.5% per month.
+
+================================================================
+10. RISKS AND MITIGATION
+================================================================
+
+Risk 1 — UAT Resource Availability
+  Probability: High | Impact: High
+  Description: Client has not yet named 2 UAT testers (due May 1).
+  Mitigation: Escalate to Jennifer Walsh if names not received by May 1.
+  If UAT team is insufficient, go-live may shift by up to 3 weeks.
+
+Risk 2 — ADP Data Quality
+  Probability: Medium | Impact: High
+  Description: ADP data may have duplicates or missing fields.
+  Mitigation: Mock migration #1 on Jun 30 will identify data issues.
+  Client must complete data cleansing before Mock #2 (Jul 21).
+
+Risk 3 — California OT Fast Formula Complexity
+  Probability: Medium | Impact: Medium
+  Description: California double-time calculation requires legal review.
+  Mitigation: Begin fast formula development by Jun 2. Legal sign-off
+  must be obtained by Jul 1 to avoid SIT delays.
+
+Risk 4 — Oracle Tenant Provisioning Delay
+  Probability: Low | Impact: High
+  Description: If Oracle takes more than 2 weeks to provision the tenant,
+  the Phase 2 start date will slip.
+  Mitigation: Client to submit Oracle provisioning request by Apr 23.
+
+================================================================
+11. TERMS AND CONDITIONS
+================================================================
+
+11.1 Intellectual Property
+All Denovo methodologies, templates, accelerators, and tools used in this
+engagement remain the intellectual property of Denovo Consulting. Client
+owns all deliverables produced specifically for the Client.
+
+11.2 Confidentiality
+Both parties agree to keep the terms of this SOW and all project materials
+confidential for a period of 3 years following project completion.
+
+11.3 Warranty
+Denovo warrants that the configured Oracle Cloud system will perform in
+accordance with Oracle's published specifications for 90 days following
+go-live. Warranty excludes issues caused by Client modifications, Oracle
+product bugs, or Client data issues.
+
+11.4 Limitation of Liability
+Denovo's maximum liability under this SOW shall not exceed the total fees
+paid in the 3 months preceding the claim. In no event shall Denovo be
+liable for indirect, consequential, or punitive damages.
+
+================================================================
+SIGNATURES
+================================================================
+
+Denovo Consulting                    Acme Manufacturing Inc.
+
+_______________________              _______________________
+Priya Sharma                         Jennifer Walsh
+Engagement Director                  Chief Human Resources Officer
+
+Date: _______________                Date: _______________

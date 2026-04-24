@@ -2,7 +2,7 @@
 
 > AI-powered consulting intelligence suite for Oracle JD Edwards & Oracle Cloud — built for Denovo's 300+ ERP consultants.
 
-Built on **Groq + LLaMA 3.3 70B** with real-time streaming, RAG-powered knowledge base, voice transcription, and a SQLite history store.
+Built on **Groq + LLaMA 3.3 70B** with real-time streaming, RAG-powered knowledge base, voice transcription, document Q&A, and a SQLite history store.
 
 ---
 
@@ -21,12 +21,13 @@ Oracle ERP consultants spend enormous time on repetitive knowledge work:
 
 ---
 
-## Features — 47 AI Tools
+## Features — 48 AI Tools
 
 ### Consultant Delivery
 | Tool | What it does |
 |------|-------------|
 | **ERP Chatbot** | Conversational Q&A on JDE & Oracle Cloud with streaming responses and RAG-powered knowledge base |
+| **Document Chatbot** | Upload PDF, DOCX, or TXT → instant plain-English summary → unlimited Q&A grounded in the document |
 | **Doc Summarizer** | Paste any SOW, RFP, or manual — get a structured executive summary |
 | **SQL Generator** | Describe data needs in plain English, get production-ready Oracle SQL with table hints |
 | **Incident Report** | Input error logs and severity — draft a professional incident report in 30 seconds |
@@ -104,9 +105,10 @@ Oracle ERP consultants spend enormous time on repetitive knowledge work:
 
 | Layer | Technology |
 |-------|-----------|
-| **AI Engine** | Groq API — LLaMA 3.3 70B Versatile |
+| **AI Engine** | Groq API — LLaMA 3.3 70B Versatile (multi-key rotation supported) |
 | **Voice Transcription** | Groq Whisper Large v3 |
 | **Backend** | Python 3.13 · FastAPI · Uvicorn |
+| **Document Parsing** | pdfplumber (PDF) · python-docx (DOCX) · plain decode (TXT) |
 | **Database** | SQLite via SQLAlchemy — auto-created, stores all generation history |
 | **Frontend** | React 18 · TypeScript · Vite · Tailwind CSS |
 | **Charts** | Recharts |
@@ -125,12 +127,13 @@ denovo-ai/
 │   ├── requirements.txt
 │   ├── .env                         # GROQ_API_KEY
 │   ├── services/
-│   │   ├── groq_client.py           # Groq client, chat/stream/whisper
+│   │   ├── groq_client.py           # Groq client, multi-key rotation, chat/stream/whisper
 │   │   └── rag_service.py           # RAG knowledge base
 │   ├── data/
 │   │   └── knowledge_base.py        # Oracle ERP knowledge
 │   └── routers/
 │       ├── chatbot.py
+│       ├── doc_chat.py              # Document upload + Q&A (PDF/DOCX/TXT)
 │       ├── summarizer.py
 │       ├── release_notes.py
 │       ├── sow.py
@@ -193,6 +196,7 @@ denovo-ai/
 │   │   └── pages/
 │   │       ├── Dashboard.tsx
 │   │       ├── ERPChatbot.tsx
+│   │       ├── DocumentChatbot.tsx  # Upload PDF/DOCX/TXT → summary + Q&A
 │   │       ├── DocSummarizer.tsx
 │   │       ├── ReleaseNotes.tsx
 │   │       ├── SOWGenerator.tsx
@@ -274,11 +278,18 @@ pip install -r requirements.txt
 # Add your Groq API key
 echo GROQ_API_KEY=your_key_here > .env
 
+# (Optional) Add a second key to double effective rate limit
+echo GROQ_API_KEY_2=your_second_key_here >> .env
+
 # Start the server
 uvicorn main:app --reload --port 8000
 ```
 
 The SQLite database (`denovo_ai.db`) is created automatically on first startup.
+
+#### Groq rate limits
+
+The free tier allows ~6,000 tokens/minute. Heavy tools (Go-Live Checklist, SOW, Test Scripts) consume 2,000–4,000 tokens per request. To increase throughput, set multiple keys — `GROQ_API_KEY`, `GROQ_API_KEY_2`, `GROQ_API_KEY_3`, etc. The backend rotates across all configured keys automatically on every request.
 
 ### Frontend
 
@@ -300,6 +311,9 @@ Open [http://localhost:5173](http://localhost:5173)
 | GET | `/api/dashboard/stats` | Platform metrics |
 | GET | `/api/history` | Recent generation history |
 | POST | `/api/chatbot/chat` | Streaming ERP Q&A |
+| POST | `/api/doc-chat/upload` | Upload PDF/DOCX/TXT — returns session_id + char count |
+| POST | `/api/doc-chat/chat` | Streaming Q&A grounded in uploaded document |
+| DELETE | `/api/doc-chat/session/{id}` | Release document session from memory |
 | POST | `/api/summarizer/summarize` | Document summarization |
 | POST | `/api/release-notes/analyze` | Release notes analysis |
 | POST | `/api/sow/generate` | SOW generation |
@@ -354,7 +368,8 @@ Open [http://localhost:5173](http://localhost:5173)
 
 - **Dark Obsidian theme** — zinc/charcoal backgrounds, teal + violet accents
 - **Command palette** — `Ctrl+K` / `⌘K` to search and navigate all tools
-- **Streaming responses** — real-time token-by-token output on chatbot
+- **Streaming responses** — real-time token-by-token output on chatbot and document Q&A
+- **Document Chatbot** — drag-and-drop upload (PDF/DOCX/TXT), auto plain-English summary, then unlimited Q&A grounded in the document (up to 60k characters)
 - **Voice recording** — browser MediaRecorder → Groq Whisper transcription
 - **Hub pages** — Oracle HCM, Oracle ERP, and JD Edwards hubs with tabbed navigation
 - **Pre-filled defaults** — every tool ships with realistic sample data for instant demos
@@ -371,11 +386,12 @@ Open [http://localhost:5173](http://localhost:5173)
 3. Navigate to any hub to show the multi-tab UI
 
 ### For a live demo (backend running)
-1. **Oracle AI Finder** → Load Sample → Generate → shows Oracle AI product recommendations
-2. **Go-Live Checklist** → Load Sample → Generate → shows full cutover runbook
-3. **JDE Finance (09)** → GL Migration → Generate → shows JDE → Oracle Cloud GL field mapping
-4. **HCM Fast Formula** → Load Sample → Generate → shows Oracle HCM formula with test cases
-5. **Meeting Notes** → Load Sample → Extract → shows action items table
+1. **Document Chatbot** → upload `sample_document.txt` (included in repo) → auto summary → ask "what are the top risks?" or "when is go-live?"
+2. **Oracle AI Finder** → Load Sample → Generate → shows Oracle AI product recommendations
+3. **Go-Live Checklist** → Load Sample → Generate → shows full cutover runbook
+4. **JDE Finance (09)** → GL Migration → Generate → shows JDE → Oracle Cloud GL field mapping
+5. **HCM Fast Formula** → Load Sample → Generate → shows Oracle HCM formula with test cases
+6. **Meeting Notes** → Load Sample → Extract → shows action items table
 
 ---
 

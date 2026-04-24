@@ -4,16 +4,10 @@ import OutputPanel from '../components/ui/OutputPanel'
 import { calculateROI } from '../api/client'
 import { Calculator, DollarSign, Clock, TrendingUp } from 'lucide-react'
 
+const SAMPLE = { project_name: 'Denovo AI Platform', num_consultants: 50, hours_saved_per_week: 3, avg_hourly_rate: 150, ticket_volume_monthly: 400, ticket_deflection_rate: 0.30, implementation_cost: 75000 }
+
 export default function ROICalculator() {
-  const [form, setForm] = useState({
-    project_name: 'Denovo AI Platform',
-    num_consultants: 50,
-    hours_saved_per_week: 3,
-    avg_hourly_rate: 150,
-    ticket_volume_monthly: 400,
-    ticket_deflection_rate: 0.30,
-    implementation_cost: 75000,
-  })
+  const [form, setForm] = useState(SAMPLE)
   const [output, setOutput] = useState('')
   const [metrics, setMetrics] = useState<any>(null)
   const [loading, setLoading] = useState(false)
@@ -87,10 +81,13 @@ export default function ROICalculator() {
             </div>
           </div>
 
-          <button onClick={run} disabled={loading}
-            className="w-full py-2.5 bg-accent-green/10 border border-accent-green/30 text-accent-green text-sm font-semibold rounded-xl hover:bg-accent-green/20 disabled:opacity-40 transition-all">
-            {loading ? 'Building ROI Story...' : 'Generate Executive ROI Narrative'}
-          </button>
+          <div className="flex gap-2">
+            <button onClick={() => setForm(SAMPLE)} className="px-4 py-2.5 rounded-xl border border-border-dim text-text-muted text-sm hover:border-accent-green/30 hover:text-text-primary transition-all">Load Sample</button>
+            <button onClick={run} disabled={loading}
+              className="flex-1 py-2.5 bg-accent-green/10 border border-accent-green/30 text-accent-green text-sm font-semibold rounded-xl hover:bg-accent-green/20 disabled:opacity-40 transition-all">
+              {loading ? 'Building ROI Story...' : 'Generate Executive ROI Narrative'}
+            </button>
+          </div>
         </div>
         <OutputPanel content={output} loading={loading} placeholder="Complete ROI analysis with 12-month impact, payback period, 3-year projection, and executive narrative will appear here" />
       </div>

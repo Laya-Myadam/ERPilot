@@ -14,6 +14,8 @@ export default function KBArticleWriter() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => { setPlatform("Oracle Fusion HCM"); setIncidentSummary("All US hourly employees unable to submit timecards — error 'Period is Closed' appearing for all workers during the April 1–15 pay period"); setRootCause("Time Entry Period was closed prematurely by the Payroll Administrator before all timecards were submitted and approved. Period was closed on April 14 instead of April 16."); setResolutionSteps("1. Navigate to Payroll > Administration > Time Entry Periods. 2. Locate the April 1–15 period with status Closed. 3. Click Actions > Reopen Period. 4. Notify all affected employees via email to resubmit their timecards within 24 hours. 5. Once all timecards are submitted and approved by managers, close the period again. 6. Confirm payroll transfer process picks up all approved timecards."); setAffectedSystems("Oracle Fusion HCM Time and Labor, Payroll module, US legislative data group"); setCategory("Payroll"); };
+
   const generate = async () => {
     if (!incidentSummary.trim() || !resolutionSteps.trim()) return;
     setLoading(true);
@@ -108,13 +110,12 @@ export default function KBArticleWriter() {
           />
         </div>
 
-        <button
-          onClick={generate}
-          disabled={loading || !incidentSummary.trim() || !resolutionSteps.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition"
-        >
-          {loading ? "Writing KB Article..." : "Generate KB Article"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !incidentSummary.trim() || !resolutionSteps.trim()} className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Writing KB Article..." : "Generate KB Article"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your KB article will appear here — symptoms, root cause, resolution steps, prevention, and keywords ready to paste into ServiceNow." />

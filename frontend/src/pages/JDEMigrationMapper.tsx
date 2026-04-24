@@ -16,6 +16,14 @@ export default function JDEMigrationMapper() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => {
+    setCompanyName("Acme Manufacturing Inc."); setJdeVersion("9.2 (current)"); setTargetSystem("Oracle Cloud HCM + ERP (Full Suite)");
+    setModulesToMigrate("HR/Payroll (07/07Y): Employee master, job/position, pay history (3 years), W-2 history. Finance (09): Chart of accounts, open AP invoices, open AR, fixed assets. Distribution (41-43): Supplier/customer master, open POs, open sales orders.");
+    setEmployeeCount("2,400 employees across 3 US legal entities, ~18,000 supplier records, ~4,200 customer records");
+    setDataYearsToMigrate("3");
+    setComplexityNotes("JDE has heavy customization in payroll (union CBA rules baked into custom UBEs). Employee master has duplicate address book entries from 2018 acquisition. Chart of accounts has 12,000 accounts — need rationalization down to ~3,000. California employees on custom OT schedule not in standard JDE OT rules.");
+  };
+
   const generate = async () => {
     if (!modulesToMigrate.trim()) return;
     setLoading(true); setResult("");
@@ -88,10 +96,13 @@ export default function JDEMigrationMapper() {
           </select>
         </div>
 
-        <button onClick={generate} disabled={loading || !modulesToMigrate.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Generating Migration Map..." : "Generate JDE → Oracle Migration Mapping"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !modulesToMigrate.trim()}
+            className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating Migration Map..." : "Generate JDE → Oracle Migration Mapping"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your JDE migration mapping will appear here — field-by-field mappings, transformation rules, HDL file sequence, code value translations, cutover strategy, and risk register." />

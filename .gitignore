@@ -25,6 +25,8 @@ build/
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
+frontend/.env.local
+frontend/.env.*.local
 
 # Logs
 *.log
@@ -43,6 +45,11 @@ Thumbs.db
 .gcloud/
 service-account*.json
 *-credentials.json
+*.pem
+*.key
+
+# Claude Code
+.claude/
 
 # Deployment scripts (contain environment-specific config)
 deploy.ps1

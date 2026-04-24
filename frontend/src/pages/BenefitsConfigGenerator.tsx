@@ -13,6 +13,16 @@ export default function BenefitsConfigGenerator() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => {
+    setClientName("Acme Manufacturing Inc.");
+    setPlanTypes("Medical (PPO + HDHP), Dental (DMO + PPO), Vision, Basic Life (1x salary), Supplemental Life, FSA (Medical + Dependent Care), HSA");
+    setCarriers("Medical: Anthem Blue Cross, Dental: Delta Dental, Vision: VSP, Life: MetLife");
+    setEnrollmentWindowDays("30");
+    setEmployeeCategories("Full-time regular (30+ hrs/week), Part-time (20-29 hrs/week) — medical only, Excludes contractors and seasonal workers");
+    setLegislation("US");
+    setSpecialRules("ACA compliance required for 2,400 employees. Ohio employees covered by union CBA with separate medical plan (Teamsters Local 436 — United Healthcare). California employees require domestic partner coverage. Open enrollment window: Nov 1–Nov 30 for Jan 1 effective date.");
+  };
+
   const generate = async () => {
     if (!planTypes.trim()) return;
     setLoading(true); setResult("");
@@ -81,10 +91,13 @@ export default function BenefitsConfigGenerator() {
             value={specialRules} onChange={e => setSpecialRules(e.target.value)} />
         </div>
 
-        <button onClick={generate} disabled={loading || !planTypes.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Generating Benefits Config..." : "Generate Benefits Configuration Spec"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !planTypes.trim()}
+            className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating Benefits Config..." : "Generate Benefits Configuration Spec"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your Benefits config spec will appear here — plan definitions, eligibility profiles, life event setup, enrollment rules, and carrier EDI requirements." />

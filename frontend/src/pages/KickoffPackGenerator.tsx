@@ -16,6 +16,8 @@ export default function KickoffPackGenerator() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => { setProjectName("Oracle Fusion Cloud HCM Implementation"); setClientName("Acme Manufacturing Inc."); setModules("Core HCM, Payroll, Absence Management, Time and Labor (OTL)"); setGoLiveDate("October 1, 2025"); setProjectStartDate("April 21, 2025"); setClientTeam("Jennifer Walsh (CHRO, Executive Sponsor), Mark Davis (IT Director), Lisa Chen (Payroll Manager, SME), Tom Rivera (HR Manager, SME), 2 dedicated UAT testers TBD"); setDenovoTeam("Sarah Chen (Lead HCM Consultant), Raj Patel (Payroll Consultant), Michael Torres (Project Manager), Priya Sharma (Engagement Director)"); setLegacySystem("ADP Workforce Now (HCM + Payroll)"); setEmployeeCount("2,400 employees across 3 US legal entities (Ohio, Texas, California)"); setSpecialConstraints("Hard go-live deadline of October 1 — cannot move due to ADP contract expiration. Union employees in Ohio require CBA compliance review before payroll config sign-off. California OT rules need legal approval. Budget is fixed at $2.1M."); };
+
   const generate = async () => {
     if (!projectName.trim() || !clientName.trim()) return;
     setLoading(true); setResult("");
@@ -102,10 +104,12 @@ export default function KickoffPackGenerator() {
             value={specialConstraints} onChange={e => setSpecialConstraints(e.target.value)} />
         </div>
 
-        <button onClick={generate} disabled={loading || !projectName.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Generating Kickoff Pack..." : "Generate Complete Project Kickoff Pack"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !projectName.trim()} className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating Kickoff Pack..." : "Generate Complete Project Kickoff Pack"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your complete kickoff pack will appear here — project charter, RACI matrix, milestone plan, risk register, communication plan, 30-day action plan, and client checklist." />

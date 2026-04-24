@@ -8,16 +8,12 @@ const SYSTEMS = ['JD Edwards EnterpriseOne 9.2', 'JD Edwards EnterpriseOne 9.1',
 const TARGET_SYSTEMS = ['Oracle Cloud ERP (Fusion)', 'JDE EnterpriseOne 9.2 (Upgrade)', 'Oracle Cloud + JDE Hybrid']
 const MODULES = ['General Ledger', 'Accounts Payable', 'Accounts Receivable', 'Fixed Assets', 'Procurement', 'Inventory', 'Sales Order', 'Manufacturing', 'HR/Payroll', 'Project Costing', 'CRM']
 
+const SAMPLE_FORM = { current_system: 'JD Edwards EnterpriseOne 9.1', target_system: 'Oracle Cloud ERP (Fusion)', customizations: '47 custom business functions (BSSVs), 12 custom UBEs for reporting, modified P4210 Sales Order entry screen with 8 additional fields, custom orchestrations for 3PL warehouse integration', integrations: 'Salesforce CRM (bidirectional), UPS/FedEx shipping, EDI 850/855/856 with 14 trading partners, ADP payroll (replacing), custom BI publisher reports feeding Power BI', data_volume: '850,000 item records, 2.4M customer records, 12 years of transaction history (GL, AP, AR), 2,400 employee records', go_live_target: 'October 1, 2025' }
+const SAMPLE_MODULES = ['General Ledger', 'Accounts Payable', 'Accounts Receivable', 'Procurement', 'Inventory']
+
 export default function MigrationAnalyzer() {
-  const [form, setForm] = useState({
-    current_system: 'JD Edwards EnterpriseOne 9.1',
-    target_system: 'Oracle Cloud ERP (Fusion)',
-    customizations: '47 custom business functions (BSSVs), 12 custom UBEs for reporting, modified P4210 Sales Order entry screen with 8 additional fields, custom orchestrations for 3PL warehouse integration',
-    integrations: 'Salesforce CRM (bidirectional), UPS/FedEx shipping, EDI 850/855/856 with 14 trading partners, ADP payroll (replacing), custom BI publisher reports feeding Power BI',
-    data_volume: '850,000 item records, 2.4M customer records, 12 years of transaction history (GL, AP, AR), 2,400 employee records',
-    go_live_target: 'October 1, 2025',
-  })
-  const [modules, setModules] = useState<string[]>(['General Ledger', 'Accounts Payable', 'Accounts Receivable', 'Procurement', 'Inventory'])
+  const [form, setForm] = useState(SAMPLE_FORM)
+  const [modules, setModules] = useState<string[]>(SAMPLE_MODULES)
   const [output, setOutput] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -79,10 +75,13 @@ export default function MigrationAnalyzer() {
               ))}
             </div>
           </div>
-          <button onClick={run} disabled={loading}
-            className="w-full py-2.5 bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-sm font-semibold rounded-xl hover:bg-accent-cyan/20 disabled:opacity-40 transition-all">
-            {loading ? 'Analyzing Migration...' : 'Analyze Migration Readiness'}
-          </button>
+          <div className="flex gap-2">
+            <button onClick={() => { setForm(SAMPLE_FORM); setModules(SAMPLE_MODULES); }} className="px-4 py-2.5 rounded-xl border border-border-dim text-text-muted text-sm hover:border-accent-cyan/30 hover:text-text-primary transition-all">Load Sample</button>
+            <button onClick={run} disabled={loading}
+              className="flex-1 py-2.5 bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-sm font-semibold rounded-xl hover:bg-accent-cyan/20 disabled:opacity-40 transition-all">
+              {loading ? 'Analyzing Migration...' : 'Analyze Migration Readiness'}
+            </button>
+          </div>
         </div>
         <OutputPanel content={output} loading={loading} placeholder="Migration readiness score, module-by-module risk assessment, and recommended approach will appear here" />
       </div>

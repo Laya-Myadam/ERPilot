@@ -9,6 +9,13 @@ import {
 
 const navGroups = [
   {
+    label: "AI Assistant",
+    items: [
+      { path: '/', label: 'ERP Chatbot', icon: MessageSquare },
+      { path: '/doc-chat', label: 'Document Chatbot', icon: FileText },
+    ]
+  },
+  {
     label: "ERP Modules",
     items: [
       { path: '/hcm', label: 'Oracle Cloud HCM', icon: Users },
@@ -45,8 +52,7 @@ const navGroups = [
   {
     label: "General Tools",
     items: [
-      { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-      { path: '/chatbot', label: 'ERP Chatbot', icon: MessageSquare },
+      { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
       { path: '/sql', label: 'SQL Generator', icon: Database },
       { path: '/summarizer', label: 'Doc Summarizer', icon: FileText },
       { path: '/meeting-notes', label: 'Meeting Notes', icon: NotebookPen },

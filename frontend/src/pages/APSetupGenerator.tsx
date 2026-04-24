@@ -14,6 +14,15 @@ export default function APSetupGenerator() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => {
+    setClientName("Acme Manufacturing Inc."); setLegislation("US");
+    setInvoiceVolumeMonthly("~1,200 invoices/month: 800 PO-matched (materials/components), 400 non-PO (utilities, professional services, facilities)");
+    setInvoiceTypes("Standard Invoice, Credit Memo, Debit Memo, Prepayment, Recurring (rent/leases)");
+    setPaymentMethods("ACH (65% of payments), Check (20%), Wire Transfer (10%, international only), Virtual Card (5%)");
+    setApprovalLevels("Auto-approve: PO-matched invoices within 5% tolerance. Manual: $0–$10K → Department Manager, $10K–$50K → Director, $50K–$200K → VP Finance, >$200K → CFO");
+    setPoMatchingRequired(true); setThreeWayMatch(true);
+  };
+
   const generate = async () => {
     if (!clientName.trim()) return;
     setLoading(true); setResult("");
@@ -88,10 +97,13 @@ export default function APSetupGenerator() {
           </label>
         </div>
 
-        <button onClick={generate} disabled={loading || !clientName.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Generating AP Setup Guide..." : "Generate Accounts Payable Configuration"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !clientName.trim()}
+            className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating AP Setup Guide..." : "Generate Accounts Payable Configuration"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your AP configuration spec will appear here — invoice setup, approval workflows, PO matching rules, payment configuration, supplier requirements, and test scenarios." />

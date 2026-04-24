@@ -26,6 +26,8 @@ export default function SRTicketWriter() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => { setProduct("Oracle Cloud Payroll"); setModule("Payroll"); setSeverity("2-High"); setEnvironment("Production"); setProblemSummary("Payroll calculation producing incorrect overtime amounts for California employees — system calculating OT at 1.5x after 40 weekly hours but not applying daily OT (1.5x after 8 hours/day) as required by California law"); setStepsToReproduce("1. Log in as Payroll Manager\n2. Run Quick Pay for any California hourly employee (e.g., Person #100345)\n3. Employee worked: Mon 10hrs, Tue 10hrs, Wed 8hrs, Thu 8hrs, Fri 4hrs (total 40 hrs)\n4. Review payroll run results — Statement of Earnings\n5. Observe: No daily OT calculated for Mon and Tue despite 10-hr workday"); setExpectedBehavior("California employees should receive OT (1.5x) for any hours worked beyond 8 in a single day, regardless of weekly total. Mon and Tue should show 2 OT hours each = 4 total daily OT hours."); setActualBehavior("System only calculates weekly OT (FLSA method). No daily OT is being calculated. California employees on a 4x10 schedule receive no overtime despite working 10-hour days."); setErrorMessages("No error message displayed. Incorrect calculation is silent — only detected by reviewing pay stub."); setWorkaroundTried("Manually adjusting element entries for affected employees — not scalable for 180 CA employees. Reviewed fast formula CALC_OVERTIME — daily OT logic appears to be missing for CA legislative data group."); setBusinessImpact("180 California employees underpaid for OT. April 15 payroll go-live at risk. Potential wage theft liability under California Labor Code. Estimated underpayment: ~$45,000 per biweekly period."); };
+
   const generate = async () => {
     if (!problemSummary.trim()) return;
     setLoading(true); setResult("");
@@ -126,10 +128,12 @@ export default function SRTicketWriter() {
           </div>
         </div>
 
-        <button onClick={generate} disabled={loading || !problemSummary.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Writing SR Ticket..." : "Generate Oracle SR Ticket"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !problemSummary.trim()} className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Writing SR Ticket..." : "Generate Oracle SR Ticket"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your structured Oracle SR will appear here — ready to paste into Oracle Support portal for fastest resolution." />

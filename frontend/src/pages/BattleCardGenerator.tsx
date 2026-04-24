@@ -19,6 +19,8 @@ export default function BattleCardGenerator() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => { setCompetitor("Accenture"); setDealContext("900-person manufacturing company currently on Oracle EBS 12.2, evaluating an upgrade to Oracle Fusion Cloud HCM and ERP. Accenture is proposing a 26-month implementation at $4.1M with a team of 18 consultants, most of whom are generalists. We are proposing a phased 18-month approach at $2.4M with a dedicated Oracle-only team."); setClientIndustry("Manufacturing"); setPainPoints("Their last ERP implementation (SAP, 2018) went 60% over budget and 8 months late. They want a dedicated team, not consultants rotating off after go-live. CFO is specifically concerned about post-go-live managed services support quality."); setModulesInScope("Oracle Fusion Cloud HCM (Core HCM, Payroll, Absence, OTL), Oracle ERP Cloud (GL, AP, AR, Fixed Assets, Procurement)"); };
+
   const generate = async () => {
     if (!dealContext.trim()) return;
     setLoading(true);
@@ -104,13 +106,12 @@ export default function BattleCardGenerator() {
           </div>
         </div>
 
-        <button
-          onClick={generate}
-          disabled={loading || !dealContext.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-purple text-white font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition"
-        >
-          {loading ? "Building Battle Card..." : `Generate Battle Card vs ${competitor}`}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !dealContext.trim()} className="flex-1 py-2.5 rounded-lg bg-accent-purple text-white font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Building Battle Card..." : `Generate Battle Card vs ${competitor}`}
+          </button>
+        </div>
       </div>
 
       {result && (

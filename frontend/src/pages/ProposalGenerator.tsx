@@ -7,15 +7,10 @@ import { Send } from 'lucide-react'
 const INDUSTRIES = ['Manufacturing', 'Distribution', 'Healthcare', 'Financial Services', 'Retail', 'Construction', 'Energy & Utilities', 'Public Sector', 'Professional Services', 'Technology']
 const SYSTEMS = ['JD Edwards EnterpriseOne (older version)', 'Oracle E-Business Suite', 'SAP ECC', 'Microsoft Dynamics', 'Sage', 'Custom/Legacy', 'No ERP (first-time implementation)', 'Unknown']
 
+const SAMPLE = { client_name: 'Acme Manufacturing Inc.', client_industry: 'Manufacturing', current_system: 'JD Edwards EnterpriseOne (older version)', pain_points: 'Payroll processing takes 3 days and is entirely manual. HR team of 8 spending 60% of time on data entry and report requests. No self-service for employees — everything goes through HR. Month-end close takes 12 days. Cannot report headcount by department in real time.', budget_range: '$1.5M – $2.5M', timeline: '18 months to go-live, targeting January 2026' }
+
 export default function ProposalGenerator() {
-  const [form, setForm] = useState({
-    client_name: 'Acme Manufacturing Inc.',
-    client_industry: 'Manufacturing',
-    current_system: 'JD Edwards EnterpriseOne (older version)',
-    pain_points: 'Payroll processing takes 3 days and is entirely manual. HR team of 8 spending 60% of time on data entry and report requests. No self-service for employees — everything goes through HR. Month-end close takes 12 days. Cannot report headcount by department in real time.',
-    budget_range: '$1.5M – $2.5M',
-    timeline: '18 months to go-live, targeting January 2026',
-  })
+  const [form, setForm] = useState(SAMPLE)
   const [output, setOutput] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -69,10 +64,13 @@ export default function ProposalGenerator() {
               {inp('Timeline', 'timeline', 'e.g. Go-live by Q3 2025')}
             </div>
           </div>
-          <button onClick={run} disabled={!form.client_name || !form.pain_points || loading}
-            className="w-full py-2.5 bg-accent-purple/10 border border-accent-purple/30 text-accent-purple text-sm font-semibold rounded-xl hover:bg-accent-purple/20 disabled:opacity-40 transition-all">
-            {loading ? 'Generating Proposal...' : 'Generate Sales Proposal'}
-          </button>
+          <div className="flex gap-2">
+            <button onClick={() => setForm(SAMPLE)} className="px-4 py-2.5 rounded-xl border border-border-dim text-text-muted text-sm hover:border-accent-purple/30 hover:text-text-primary transition-all">Load Sample</button>
+            <button onClick={run} disabled={!form.client_name || !form.pain_points || loading}
+              className="flex-1 py-2.5 bg-accent-purple/10 border border-accent-purple/30 text-accent-purple text-sm font-semibold rounded-xl hover:bg-accent-purple/20 disabled:opacity-40 transition-all">
+              {loading ? 'Generating Proposal...' : 'Generate Sales Proposal'}
+            </button>
+          </div>
         </div>
         <OutputPanel content={output} loading={loading} placeholder="Full tailored proposal with client-specific pain points, Denovo solution, methodology, and next steps will appear here" />
       </div>

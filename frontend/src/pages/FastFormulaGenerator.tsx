@@ -13,6 +13,8 @@ export default function FastFormulaGenerator() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => { setFormulaType("Payroll"); setDescription("Calculate overtime pay at 1.5x the hourly rate for all hours worked beyond 40 in a week. If the employee is salaried exempt (grade EX1 through EX5), return 0. Apply a weekly cap of $500 on overtime earnings."); setElementName("WEEKLY_OVERTIME_PAY"); setInputs("HOURS_WORKED, HOURLY_RATE, SALARY_GRADE"); setExpectedOutput("OVERTIME_AMOUNT — numeric dollar value, minimum 0"); };
+
   const generate = async () => {
     if (!description.trim()) return;
     setLoading(true);
@@ -97,13 +99,12 @@ export default function FastFormulaGenerator() {
           </div>
         </div>
 
-        <button
-          onClick={generate}
-          disabled={loading || !description.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition"
-        >
-          {loading ? "Generating Formula..." : "Generate Fast Formula"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !description.trim()} className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating Formula..." : "Generate Fast Formula"}
+          </button>
+        </div>
       </div>
 
 

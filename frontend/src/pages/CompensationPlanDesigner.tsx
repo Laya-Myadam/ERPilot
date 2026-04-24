@@ -16,6 +16,15 @@ export default function CompensationPlanDesigner() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => {
+    setClientName("Acme Manufacturing Inc."); setPlanType("Merit + Bonus (Combined)"); setPlanCycle("Annual");
+    setGradeStructure("8 grades (G1–G8): G1 $35K–$50K, G2 $48K–$68K, G3 $65K–$90K, G4 $85K–$115K, G5 $110K–$150K, G6 $140K–$185K, G7 $175K–$230K, G8 $220K–$300K");
+    setBudgetPercent("3.5% merit pool, 10–20% target bonus by grade");
+    setPerformanceRatings("1 = Does Not Meet, 2 = Partially Meets, 3 = Meets Expectations, 4 = Exceeds, 5 = Outstanding");
+    setApprovalWorkflow("Direct Manager enters recommendations → HR Business Partner reviews → Compensation validates → CHRO approves total spend");
+    setSpecialRules("New hires within 6 months of cycle start are not eligible for merit but can receive spot bonus. Employees on PIP are ineligible. California salary transparency law requires grade posting on requisitions. Union employees in Ohio are excluded — governed by CBA.");
+  };
+
   const generate = async () => {
     if (!planType.trim()) return;
     setLoading(true); setResult("");
@@ -92,10 +101,13 @@ export default function CompensationPlanDesigner() {
             value={specialRules} onChange={e => setSpecialRules(e.target.value)} />
         </div>
 
-        <button onClick={generate} disabled={loading || !planType.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Designing Compensation Plan..." : "Generate Compensation Plan Design"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !planType.trim()}
+            className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Designing Compensation Plan..." : "Generate Compensation Plan Design"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your compensation plan design will appear here — grade structure, merit matrix, bonus targets, approval workflow, Oracle config steps, and test scenarios." />

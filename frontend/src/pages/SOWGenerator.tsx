@@ -6,15 +6,12 @@ import { ClipboardList, X, Plus } from 'lucide-react'
 
 const MODULES = ['General Ledger', 'Accounts Payable', 'Accounts Receivable', 'Fixed Assets', 'Procurement', 'Inventory', 'Sales Order', 'Manufacturing', 'Payroll', 'Project Costing']
 
+const SAMPLE_FORM = { project_name: 'Oracle Fusion Cloud HCM Implementation', client_name: 'Acme Manufacturing Inc.', project_scope: 'Full implementation of Oracle Fusion Cloud HCM including Core HCM, Payroll, Absence Management, and Time & Labor for 2,400 employees across 3 US legal entities. Includes data migration from ADP Workforce Now, configuration, testing, training, and hypercare support.', timeline_weeks: 36, team_size: 6 }
+const SAMPLE_MODULES = ['Payroll', 'General Ledger', 'Accounts Payable']
+
 export default function SOWGenerator() {
-  const [form, setForm] = useState({
-    project_name: 'Oracle Fusion Cloud HCM Implementation',
-    client_name: 'Acme Manufacturing Inc.',
-    project_scope: 'Full implementation of Oracle Fusion Cloud HCM including Core HCM, Payroll, Absence Management, and Time & Labor for 2,400 employees across 3 US legal entities. Includes data migration from ADP Workforce Now, configuration, testing, training, and hypercare support.',
-    timeline_weeks: 36,
-    team_size: 6
-  })
-  const [modules, setModules] = useState<string[]>(['Payroll', 'General Ledger', 'Accounts Payable'])
+  const [form, setForm] = useState(SAMPLE_FORM)
+  const [modules, setModules] = useState<string[]>(SAMPLE_MODULES)
   const [output, setOutput] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -72,10 +69,13 @@ export default function SOWGenerator() {
               ))}
             </div>
           </div>
-          <button onClick={run} disabled={!form.project_name || !form.client_name || !form.project_scope || loading}
-            className="w-full py-2.5 bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-sm font-semibold rounded-xl hover:bg-accent-cyan/20 disabled:opacity-40 transition-all">
-            {loading ? 'Generating SOW...' : 'Generate Statement of Work'}
-          </button>
+          <div className="flex gap-2">
+            <button onClick={() => { setForm(SAMPLE_FORM); setModules(SAMPLE_MODULES); }} className="px-4 py-2.5 rounded-xl border border-border-dim text-text-muted text-sm hover:border-accent-cyan/30 hover:text-text-primary transition-all">Load Sample</button>
+            <button onClick={run} disabled={!form.project_name || !form.client_name || !form.project_scope || loading}
+              className="flex-1 py-2.5 bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan text-sm font-semibold rounded-xl hover:bg-accent-cyan/20 disabled:opacity-40 transition-all">
+              {loading ? 'Generating SOW...' : 'Generate Statement of Work'}
+            </button>
+          </div>
         </div>
         <OutputPanel content={output} loading={loading} placeholder="Full SOW document with scope, phases, deliverables, and timeline will appear here" />
       </div>

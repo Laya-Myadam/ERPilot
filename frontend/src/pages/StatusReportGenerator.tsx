@@ -33,6 +33,8 @@ export default function StatusReportGenerator() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const loadSample = () => { setProjectName("Oracle Fusion Cloud HCM Implementation"); setClientName("Acme Manufacturing Inc."); setReportPeriod("Week of April 14–18, 2025"); setOverallStatus("Yellow"); setPercentComplete("42%"); setBudgetStatus("On budget — $840K of $2.1M spent"); setAccomplishments("Completed Core HCM configuration for all 3 legal entities (Ohio, Texas, California)\nFinalized payroll element design for 18 standard earnings elements — client signed off\nCompleted HDL data migration templates for Worker and Assignment objects\nHeld absence plan design workshop — all 6 leave types documented and approved"); setInProgress("Fast Formula development for overtime and shift differential (Sarah Chen, due Apr 25)\nPayroll element entry load for 850 employees — 60% complete (Raj Patel, due Apr 22)\nOTL work schedule configuration for 3-shift manufacturing pattern (Sarah Chen, due Apr 28)"); setUpcoming("System Integration Testing (SIT) kickoff — May 5\nParallel run #1 setup and execution — May 12-16\nUAT environment refresh and test script distribution — May 1"); setRisksIssues("YELLOW RISK: Client UAT team availability — only 2 of 5 designated testers confirmed available for May 19 UAT week. Impact: UAT may extend by 1 week.\nYELLOW ISSUE: California OT fast formula requires legal review of Double Time rule — awaiting client HR Legal sign-off (due Apr 16, now Apr 21). Could delay payroll SIT."); setDecisionsNeeded("1. Confirm UAT team members and availability for week of May 19 — needed by Apr 21\n2. HR Legal sign-off on California Double Time fast formula — needed by Apr 21\n3. Decision on 401k integration: real-time API vs weekly SFTP file — needed by Apr 25"); };
+
   const generate = async () => {
     if (!projectName.trim() || !clientName.trim()) return;
     setLoading(true); setResult("");
@@ -129,10 +131,12 @@ export default function StatusReportGenerator() {
           </div>
         </div>
 
-        <button onClick={generate} disabled={loading || !projectName.trim()}
-          className="w-full py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
-          {loading ? "Generating Status Report..." : "Generate Client Status Report"}
-        </button>
+        <div className="flex gap-2">
+          <button onClick={loadSample} className="px-4 py-2.5 rounded-lg border border-zinc-700 text-zinc-400 text-sm hover:border-zinc-500 hover:text-zinc-300 transition">Load Sample</button>
+          <button onClick={generate} disabled={loading || !projectName.trim()} className="flex-1 py-2.5 rounded-lg bg-accent-cyan text-black font-semibold text-sm hover:opacity-90 disabled:opacity-40 transition">
+            {loading ? "Generating Status Report..." : "Generate Client Status Report"}
+          </button>
+        </div>
       </div>
 
       <OutputPanel content={result} loading={loading} placeholder="Your formatted weekly status report will appear here — ready to copy and send to the client." />
