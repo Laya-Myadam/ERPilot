@@ -1,4 +1,4 @@
-# Denovo AI Platform
+# ERPilot - AI Powered Consulting Intelligence Tool
 
 > AI-powered consulting intelligence suite for Oracle JD Edwards & Oracle Cloud — built for Denovo's 300+ ERP consultants.
 
