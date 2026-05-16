@@ -1,6 +1,6 @@
 # ERPilot - AI Powered Consulting Intelligence Tool
 
-> AI-powered consulting intelligence suite for Oracle JD Edwards & Oracle Cloud — built for Denovo's 300+ ERP consultants.
+> AI-powered consulting intelligence suite for Oracle JD Edwards & Oracle Cloud — built for  ERP consultants.
 
 Built on **Groq + LLaMA 3.3 70B** with real-time streaming, RAG-powered knowledge base, voice transcription, document Q&A, and a SQLite history store.
 
@@ -17,7 +17,7 @@ Oracle ERP consultants spend enormous time on repetitive knowledge work:
 - Configuring HCM modules (payroll elements, absence plans, fast formulas) without AI assistance
 - Mapping JDE modules to Oracle Cloud equivalents during migrations
 
-**Denovo AI eliminates all of this.**
+**ERPilot eliminates all of this.**
 
 ---
 
@@ -45,7 +45,7 @@ Oracle ERP consultants spend enormous time on repetitive knowledge work:
 | **ROI Calculator** | Input project parameters → executive ROI narrative with financial projections |
 | **Oracle AI Finder** | Map client pain points to Oracle AI Cloud products (FAW, ODA, AI for Finance, OCI AI) |
 | **SOW Generator** | Project details + modules → complete Statement of Work with phases, deliverables, and pricing |
-| **Battle Card Generator** | Competitive positioning cards — Denovo vs. competitors by module and vertical |
+| **Battle Card Generator** | Competitive positioning cards — Company vs. competitors by module and vertical |
 | **Kickoff Pack Generator** | Project kickoff package — agenda, RACI, norms, risk register, and communication plan |
 
 ### Project Execution
@@ -120,7 +120,7 @@ Oracle ERP consultants spend enormous time on repetitive knowledge work:
 ## Project Structure
 
 ```
-denovo-ai/
+erpilot/
 ├── backend/
 │   ├── main.py                      # FastAPI app, all router registrations
 │   ├── database.py                  # SQLite setup, history model
@@ -285,7 +285,7 @@ echo GROQ_API_KEY_2=your_second_key_here >> .env
 uvicorn main:app --reload --port 8000
 ```
 
-The SQLite database (`denovo_ai.db`) is created automatically on first startup.
+The SQLite database (`erpilot.db`) is created automatically on first startup.
 
 #### Groq rate limits
 
@@ -397,7 +397,7 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ## Oracle AI Cloud Alignment
 
-The **Oracle AI Finder** tool specifically supports Denovo's Oracle AI Cloud practice by:
+The **Oracle AI Finder** tool specifically supports Oracle AI Cloud practice by:
 
 - Mapping client pain points to specific Oracle AI products (FAW, ODA, OCI AI Services, AI for Finance, Supply Chain AI)
 - Generating prioritized opportunity assessments with implementation effort and revenue estimates
